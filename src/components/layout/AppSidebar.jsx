@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react"
-import { ChevronRight, Search, X } from "lucide-react"
+import { ChevronRight, Search, X, Sun, Moon } from "lucide-react"
 import {
   Swords, Diamond, TrendingUp, Skull, Shield, Puzzle,
   CookingPot, Compass, Coins, Home, Sparkles, Globe,
@@ -27,7 +26,8 @@ export function AppSidebar({
   isMobile,
   searchQuery,
   setSearchQuery,
-  setActivePage,
+  darkMode,
+  setDarkMode,
 }) {
   const searchResults = useSearch(searchQuery)
   const pgCount = Object.keys(guideData).length
@@ -51,35 +51,41 @@ export function AppSidebar({
 
       <div
         className={cn(
-          "flex h-screen flex-col overflow-hidden border-r border-sidebar-border shadow-[inset_-6px_0_12px_rgba(0,0,0,.2)]",
+          "sidebar-gradient flex h-screen flex-col overflow-hidden border-r border-sidebar-border shadow-[inset_-6px_0_12px_rgba(0,0,0,.2)]",
           isMobile
             ? "fixed inset-y-0 left-0 z-[100] w-[85vw] max-w-[320px] shadow-[4px_0_30px_rgba(0,0,0,.4)]"
             : "relative w-[270px] min-w-[270px]"
         )}
-        style={{
-          ...sidebarStyle,
-          background:
-            "linear-gradient(160deg, hsl(27 30% 14%) 0%, hsl(27 30% 18%) 30%, hsl(27 28% 13%) 70%, hsl(27 30% 10%) 100%)",
-        }}
+        style={sidebarStyle}
       >
         {/* Header */}
         <div className="shrink-0 border-b border-sidebar-border px-3.5 py-4">
-          <div
-            className="cursor-pointer"
-            onClick={() => {
-              navigateTo(null)
-              setActivePage(null)
-            }}
-          >
-            <div className="font-sans text-[9px] font-bold uppercase tracking-[3px] text-gold">
-              AN EXPLORER'S
+          <div className="flex items-start justify-between">
+            <div
+              className="cursor-pointer"
+              onClick={() => navigateTo(null)}
+            >
+              <div className="font-sans text-[9px] font-bold uppercase tracking-[3px] text-gold">
+                AN EXPLORER'S
+              </div>
+              <div className="font-display text-xl font-bold leading-tight text-gold-muted">
+                Field Journal
+              </div>
+              <div className="mt-0.5 font-body text-[11px] italic text-ink-faded">
+                {pgCount} pages of Pywel
+              </div>
             </div>
-            <div className="font-display text-xl font-bold leading-tight text-gold-muted">
-              Field Journal
-            </div>
-            <div className="mt-0.5 font-body text-[11px] italic text-ink-faded">
-              {pgCount} pages of Pywel
-            </div>
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              className="mt-0.5 flex h-7 w-7 cursor-pointer items-center justify-center rounded border-none bg-transparent text-ink-faded transition-colors hover:text-gold"
+              title={darkMode ? "Switch to day" : "Switch to night"}
+            >
+              {darkMode ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </button>
           </div>
 
           {/* Search */}
@@ -89,10 +95,8 @@ export function AppSidebar({
               type="text"
               value={searchQuery}
               placeholder="Search the journal\u2026"
-              onChange={(e) => {
-                setSearchQuery(e.target.value)
-                setActivePage(null)
-              }}
+              id="journal-search"
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-sm border border-sidebar-border bg-bark-deep py-2 pl-8 pr-8 font-body text-[13px] italic text-sidebar-foreground placeholder:text-ink-faded/40 outline-none transition-colors focus:border-gold/50"
             />
             {searchQuery && (
