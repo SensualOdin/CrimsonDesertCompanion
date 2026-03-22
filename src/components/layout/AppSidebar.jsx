@@ -75,17 +75,28 @@ export function AppSidebar({
                 {pgCount} pages of Pywel
               </div>
             </div>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="mt-0.5 flex h-7 w-7 cursor-pointer items-center justify-center rounded border-none bg-transparent text-ink-faded transition-colors hover:text-gold"
-              title={darkMode ? "Switch to day" : "Switch to night"}
-            >
-              {darkMode ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="mt-0.5 flex h-7 w-7 cursor-pointer items-center justify-center rounded border-none bg-transparent text-ink-faded transition-colors hover:text-gold"
+                title={darkMode ? "Switch to day" : "Switch to night"}
+              >
+                {darkMode ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+              </button>
+              {isMobile && (
+                <button
+                  onClick={() => setSidebarOpen(false)}
+                  className="mt-0.5 flex h-7 w-7 cursor-pointer items-center justify-center rounded border-none bg-transparent text-ink-faded transition-colors hover:text-gold"
+                  title="Close menu"
+                >
+                  <X className="h-4 w-4" />
+                </button>
               )}
-            </button>
+            </div>
           </div>
 
           {/* Search */}

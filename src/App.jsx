@@ -43,7 +43,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem("theme")
     if (saved) return saved === "dark"
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
+    return false // default to light mode
   })
   const contentRef = useRef(null)
   const bRefs = useRef({})
@@ -233,20 +233,18 @@ export default function App() {
   return (
     <TooltipProvider>
       <div className="relative flex h-screen overflow-hidden bg-bark">
-        {/* Hamburger */}
-        <Button
-          variant="default"
-          size="icon"
-          className="fixed top-2.5 z-[200] rounded-md shadow-lg"
-          style={{ left: isMobile ? 10 : sidebarOpen ? 280 : 10 }}
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-        >
-          {sidebarOpen ? (
-            <X className="h-5 w-5" />
-          ) : (
+        {/* Hamburger — hidden on mobile when sidebar is open (close button lives inside sidebar) */}
+        {!(isMobile && sidebarOpen) && (
+          <Button
+            variant="default"
+            size="icon"
+            className="fixed top-2.5 z-[200] rounded-md shadow-lg"
+            style={{ left: isMobile ? 10 : sidebarOpen ? 280 : 10 }}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
             <Menu className="h-5 w-5" />
-          )}
-        </Button>
+          </Button>
+        )}
 
         {/* Sidebar */}
         <AppSidebar

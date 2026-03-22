@@ -30,7 +30,7 @@ export function HomePage({ navigateTo, setExpandedCats, isMobile }) {
         <div className="mb-1 font-sans text-[9px] font-bold uppercase tracking-[4px] text-gold md:text-[10px]">
           AN EXPLORER'S
         </div>
-        <h1 className="mb-1 font-display text-4xl font-bold text-crimson-dark md:text-5xl leading-none">
+        <h1 className="mb-1 font-display text-4xl font-bold text-crimson md:text-5xl leading-none">
           Field Journal
         </h1>
         <p className="mb-0.5 font-display text-base italic text-ink-light">
@@ -44,7 +44,7 @@ export function HomePage({ navigateTo, setExpandedCats, isMobile }) {
 
       {/* Starter cards */}
       <Card className="mb-4 border-2 border-crimson/30 p-3.5">
-        <div className="mb-2.5 font-display text-sm font-bold text-crimson-dark">
+        <div className="mb-2.5 font-display text-sm font-bold text-crimson">
           <Star className="mr-1.5 inline h-4 w-4 text-crimson" />
           New to Pywel? Begin Here
         </div>
@@ -65,7 +65,7 @@ export function HomePage({ navigateTo, setExpandedCats, isMobile }) {
               >
                 <Icon className="h-5 w-5 flex-shrink-0 text-crimson" />
                 <div>
-                  <div className="font-sans text-xs font-semibold text-bark">
+                  <div className="font-sans text-xs font-semibold text-foreground">
                     {guideData[s.key].title}
                   </div>
                   <div className="font-body text-[11px] italic text-ink-faded">
@@ -96,7 +96,7 @@ export function HomePage({ navigateTo, setExpandedCats, isMobile }) {
               >
                 <Icon className="h-4 w-4 flex-shrink-0 text-gold" />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate font-sans text-xs font-bold text-bark">
+                  <div className="truncate font-sans text-xs font-bold text-foreground">
                     {cat}
                   </div>
                   <div className="font-body text-[10.5px] italic text-ink-faded">
