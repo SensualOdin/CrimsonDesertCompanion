@@ -22,6 +22,7 @@ export function GuidePage({
   catNext,
   isMobile,
   setSidebarOpen,
+  hasNavigated,
 }) {
   const headings = useMemo(() => {
     if (!pageData) return []
@@ -74,8 +75,8 @@ export function GuidePage({
         />
       ))}
 
-      {/* Mobile browse button */}
-      {isMobile && (
+      {/* Mobile browse button — only on first page visit */}
+      {isMobile && !hasNavigated && (
         <button
           onClick={() => setSidebarOpen(true)}
           className="relative z-[5] mt-3.5 w-full rounded-md border border-border bg-parchment-warm/40 p-2.5 text-center font-sans text-xs font-semibold text-crimson cursor-pointer transition-colors hover:bg-parchment-warm/60"

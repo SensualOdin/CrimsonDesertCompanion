@@ -27,7 +27,6 @@ export function AppSidebar({
   isMobile,
   searchQuery,
   setSearchQuery,
-  setActivePage,
 }) {
   const searchResults = useSearch(searchQuery)
   const pgCount = Object.keys(guideData).length
@@ -66,10 +65,7 @@ export function AppSidebar({
         <div className="shrink-0 border-b border-sidebar-border px-3.5 py-4">
           <div
             className="cursor-pointer"
-            onClick={() => {
-              navigateTo(null)
-              setActivePage(null)
-            }}
+            onClick={() => navigateTo(null)}
           >
             <div className="font-sans text-[9px] font-bold uppercase tracking-[3px] text-gold">
               AN EXPLORER'S
@@ -89,10 +85,8 @@ export function AppSidebar({
               type="text"
               value={searchQuery}
               placeholder="Search the journal\u2026"
-              onChange={(e) => {
-                setSearchQuery(e.target.value)
-                setActivePage(null)
-              }}
+              id="journal-search"
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full rounded-sm border border-sidebar-border bg-bark-deep py-2 pl-8 pr-8 font-body text-[13px] italic text-sidebar-foreground placeholder:text-ink-faded/40 outline-none transition-colors focus:border-gold/50"
             />
             {searchQuery && (

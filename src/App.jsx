@@ -14,15 +14,32 @@ import { AppSidebar } from "@/components/layout/AppSidebar"
 import { HomePage } from "@/components/home/HomePage"
 import { GuidePage } from "@/components/guide/GuidePage"
 
+/* Read page key from URL on initial load */
+const _initKey = new URLSearchParams(window.location.search).get("page")
+const INIT_PAGE = _initKey && guideData[_initKey] ? _initKey : null
+
+function buildCollapsed(key) {
+  const s = {}
+  if (key && guideData[key]) {
+    guideData[key].content.forEach((b, i) => {
+      if (b.type === "heading") s[i] = true
+    })
+  }
+  return s
+}
+
 export default function App() {
-  const [activePage, setActivePage] = useState(null)
+  const [activePage, setActivePage] = useState(INIT_PAGE)
   const [searchQuery, setSearchQuery] = useState("")
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [expandedCats, setExpandedCats] = useState({})
-  const [collapsed, setCollapsed] = useState({})
+  const [expandedCats, setExpandedCats] = useState(() =>
+    INIT_PAGE ? { [guideData[INIT_PAGE].category]: true } : {}
+  )
+  const [collapsed, setCollapsed] = useState(() => buildCollapsed(INIT_PAGE))
   const [showTop, setShowTop] = useState(false)
-  const [allCol, setAllCol] = useState(false)
+  const [allCol, setAllCol] = useState(!!INIT_PAGE)
   const [hlIdx, setHlIdx] = useState(null)
+  const [hasNavigated, setHasNavigated] = useState(false)
   const contentRef = useRef(null)
   const bRefs = useRef({})
   const isMobile = useIsMobile()
@@ -35,24 +52,90 @@ export default function App() {
     setExpandedCats((prev) => ({ ...prev, [cat]: !prev[cat] }))
   }
 
+  /* ── Navigation ───────────────────────────────────────────── */
   const navigateTo = useCallback(
     (key, bi) => {
       if (key && !guideData[key]) return
       setActivePage(key)
-      setSearchQuery("")
-      const colState = {}
-      if (key && guideData[key]) {
-        guideData[key].content.forEach((b, i) => {
-          if (b.type === "heading") colState[i] = true
-        })
+      if (key) setHasNavigated(true)
+
+      // Build collapsed state — all sections collapsed
+      const colState = buildCollapsed(key)
+
+      // Auto-expand the section that contains the highlighted block
+      if (key && bi !== undefined) {
+        const blocks = guideData[key].content
+        for (let i = bi; i >= 0; i--) {
+          if (blocks[i]?.type === "heading") {
+            colState[i] = false // expand this section
+            break
+          }
+        }
       }
+
       setCollapsed(colState)
-      setAllCol(true)
+      setAllCol(bi === undefined && !!key)
       setHlIdx(bi !== undefined ? bi : null)
       if (isMobile) setSidebarOpen(false)
+
+      // Push browser history
+      const url = key
+        ? `?page=${encodeURIComponent(key)}`
+        : window.location.pathname
+      history.pushState({ page: key || null }, "", url)
     },
     [isMobile]
   )
+
+  /* ── Browser history (back / forward + initial state) ───── */
+  useEffect(() => {
+    // Replace current entry so first back-press works correctly
+    history.replaceState(
+      { page: INIT_PAGE },
+      "",
+      INIT_PAGE
+        ? `?page=${encodeURIComponent(INIT_PAGE)}`
+        : window.location.pathname
+    )
+
+    function onPopState() {
+      const p = new URLSearchParams(window.location.search).get("page")
+      const page = p && guideData[p] ? p : null
+      setActivePage(page)
+      setCollapsed(buildCollapsed(page))
+      setAllCol(!!page)
+      setHlIdx(null)
+    }
+
+    window.addEventListener("popstate", onPopState)
+    return () => window.removeEventListener("popstate", onPopState)
+  }, [])
+
+  /* ── Keyboard shortcuts ──────────────────────────────────── */
+  useEffect(() => {
+    function onKeyDown(e) {
+      // Ctrl/Cmd + K → focus search
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault()
+        const input = document.getElementById("journal-search")
+        if (input) {
+          if (isMobile) setSidebarOpen(true)
+          // Small delay for mobile sidebar animation
+          setTimeout(() => input.focus(), isMobile ? 260 : 0)
+        }
+      }
+      // Escape → clear search or close mobile sidebar
+      if (e.key === "Escape") {
+        if (searchQuery) {
+          setSearchQuery("")
+        } else if (isMobile && sidebarOpen) {
+          setSidebarOpen(false)
+        }
+      }
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [searchQuery, isMobile, sidebarOpen])
 
   // Scroll tracking
   useEffect(() => {
@@ -165,7 +248,6 @@ export default function App() {
           isMobile={isMobile}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          setActivePage={setActivePage}
         />
 
         {/* Main content */}
@@ -176,7 +258,7 @@ export default function App() {
             padding: isMobile ? "56px 18px 28px" : "28px 44px 28px 60px",
           }}
         >
-          {!activePage && !searchQuery ? (
+          {!activePage ? (
             <HomePage
               navigateTo={navigateTo}
               setExpandedCats={setExpandedCats}
@@ -199,6 +281,7 @@ export default function App() {
               catNext={catNav.next}
               isMobile={isMobile}
               setSidebarOpen={setSidebarOpen}
+              hasNavigated={hasNavigated}
             />
           ) : null}
         </div>
