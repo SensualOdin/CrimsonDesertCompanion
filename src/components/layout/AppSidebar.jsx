@@ -18,7 +18,9 @@ const iconMap = {
 
 export function AppSidebar({
   activePage,
+  activeCategory,
   navigateTo,
+  navigateToCat,
   expandedCats,
   toggleCat,
   sidebarOpen,
@@ -134,8 +136,19 @@ export function AppSidebar({
                 return (
                   <div key={cat}>
                     <button
-                      onClick={() => toggleCat(cat)}
-                      className="flex w-full cursor-pointer items-center gap-2.5 border-none bg-transparent px-3.5 py-2.5 text-left font-sans text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/70 transition-colors hover:bg-bark-light hover:text-gold-light"
+                      onClick={() => {
+                        if (activeCategory === cat && !activePage) {
+                          // Already viewing this category — toggle collapse
+                          toggleCat(cat)
+                        } else {
+                          if (!expandedCats[cat]) toggleCat(cat)
+                          navigateToCat(cat)
+                        }
+                      }}
+                      className={cn(
+                        "flex w-full cursor-pointer items-center gap-2.5 border-none bg-transparent px-3.5 py-2.5 text-left font-sans text-xs font-semibold uppercase tracking-wider text-sidebar-foreground/70 transition-colors hover:bg-bark-light hover:text-gold-light",
+                        activeCategory === cat && !activePage && "bg-bark-light text-gold-light"
+                      )}
                     >
                       <Icon className="h-4 w-4 flex-shrink-0 text-gold" />
                       <span className="flex-1">{cat}</span>
