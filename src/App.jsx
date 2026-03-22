@@ -40,9 +40,20 @@ export default function App() {
   const [allCol, setAllCol] = useState(!!INIT_PAGE)
   const [hlIdx, setHlIdx] = useState(null)
   const [hasNavigated, setHasNavigated] = useState(false)
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem("theme")
+    if (saved) return saved === "dark"
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+  })
   const contentRef = useRef(null)
   const bRefs = useRef({})
   const isMobile = useIsMobile()
+
+  // Apply dark class to document root
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode)
+    localStorage.setItem("theme", darkMode ? "dark" : "light")
+  }, [darkMode])
 
   useEffect(() => {
     if (!isMobile) setSidebarOpen(true)
@@ -248,6 +259,8 @@ export default function App() {
           isMobile={isMobile}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
         />
 
         {/* Main content */}
