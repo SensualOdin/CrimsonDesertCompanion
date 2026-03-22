@@ -2,6 +2,7 @@ import { IntroBlock } from "./blocks/IntroBlock"
 import { HeadingBlock } from "./blocks/HeadingBlock"
 import { SubheadingBlock } from "./blocks/SubheadingBlock"
 import { TipBlock } from "./blocks/TipBlock"
+import { StatBlock } from "./blocks/StatBlock"
 import { TableBlock } from "./blocks/TableBlock"
 import { LinksBlock } from "./blocks/LinksBlock"
 
@@ -31,10 +32,11 @@ export function ContentBlock({
       )
     case "subheading":
       return <SubheadingBlock ref={setRef(index)} text={block.text} />
+    case "stat":
+      return <StatBlock ref={setRef(index)} text={block.text} />
     case "tip":
     case "warning":
     case "location":
-    case "stat":
       return (
         <TipBlock ref={setRef(index)} text={block.text} variant={block.type} />
       )
