@@ -33,7 +33,7 @@ export function GuidePage({
   }, [pageData])
 
   return (
-    <div className="relative z-[5] mx-auto max-w-[700px]">
+    <div className="relative z-[5] mx-auto max-w-[700px] anim-page-enter">
       {/* Back nav */}
       <div className="mb-2 flex min-h-[32px] items-center gap-1 font-sans text-[11px] font-semibold uppercase tracking-widest">
         <button

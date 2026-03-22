@@ -1,9 +1,10 @@
 import React from "react"
+import { cn } from "@/lib/utils"
 
 export const TableBlock = React.forwardRef(({ headers, rows }, ref) => (
   <div
     ref={ref}
-    className="relative z-[5] my-3 overflow-x-auto rounded-sm border border-border shadow-sm"
+    className="relative z-[5] my-3 overflow-x-auto rounded-sm border border-border/80 shadow-md"
   >
     <table className="w-full border-collapse font-sans text-xs">
       <thead>
@@ -11,7 +12,7 @@ export const TableBlock = React.forwardRef(({ headers, rows }, ref) => (
           {headers.map((h, j) => (
             <th
               key={j}
-              className="whitespace-nowrap border-b-2 border-gold bg-bark px-2.5 py-1.5 text-left font-semibold text-gold-muted"
+              className="whitespace-nowrap border-b-2 border-gold/60 table-header-gradient px-3 py-2 text-left font-semibold tracking-wide text-gold-muted"
             >
               {h}
             </th>
@@ -22,10 +23,10 @@ export const TableBlock = React.forwardRef(({ headers, rows }, ref) => (
         {rows.map((row, j) => (
           <tr
             key={j}
-            className="border-b border-parchment-warm/60 transition-colors hover:bg-gold/[0.06] even:bg-parchment-warm/20"
+            className="border-b border-parchment-warm/50 transition-all duration-150 hover:bg-gold/[0.07] even:bg-parchment-warm/15"
           >
             {row.map((cell, k) => (
-              <td key={k} className="px-2.5 py-1.5 text-ink">
+              <td key={k} className={cn("px-3 py-2 text-ink", k === 0 && "font-medium")}>
                 {cell || ""}
               </td>
             ))}

@@ -75,7 +75,7 @@ export const StatBlock = React.forwardRef(({ text }, ref) => {
   return (
     <div
       ref={ref}
-      className="relative z-[5] -mt-px overflow-hidden rounded-sm border border-stat/20 bg-stat/[0.04]"
+      className="relative z-[5] -mt-px overflow-hidden rounded-sm border border-stat/20 stat-accent shadow-sm"
     >
       {entries.map((entry, i) => (
         <div

@@ -174,3 +174,171 @@
   0%, 100% { background: inherit; }
   50% { background: rgba(184, 134, 11, .25); border-left-color: #d4a017; }
 }
+
+/* ═══ PREMIUM ANIMATIONS ═══ */
+
+/* Page enter — fade up */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim-page-enter {
+  animation: fadeInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Staggered children reveal */
+@keyframes staggerIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim-stagger > * {
+  opacity: 0;
+  animation: staggerIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.anim-stagger > *:nth-child(1) { animation-delay: 0.04s; }
+.anim-stagger > *:nth-child(2) { animation-delay: 0.08s; }
+.anim-stagger > *:nth-child(3) { animation-delay: 0.12s; }
+.anim-stagger > *:nth-child(4) { animation-delay: 0.16s; }
+.anim-stagger > *:nth-child(5) { animation-delay: 0.20s; }
+.anim-stagger > *:nth-child(6) { animation-delay: 0.24s; }
+.anim-stagger > *:nth-child(7) { animation-delay: 0.28s; }
+.anim-stagger > *:nth-child(8) { animation-delay: 0.32s; }
+.anim-stagger > *:nth-child(n+9) { animation-delay: 0.36s; }
+
+/* Hero title shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--crimson-dark)) 0%,
+    hsl(var(--crimson)) 25%,
+    hsl(var(--gold)) 50%,
+    hsl(var(--crimson)) 75%,
+    hsl(var(--crimson-dark)) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+/* Floating ember particles */
+@keyframes ember-rise {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-100vh) translateX(var(--drift, 20px)) scale(0.3); opacity: 0; }
+}
+.ember {
+  position: absolute;
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: radial-gradient(circle, hsl(var(--gold)) 0%, hsl(var(--crimson)) 80%);
+  box-shadow: 0 0 4px 1px hsl(var(--gold) / 0.4);
+  animation: ember-rise var(--duration, 8s) var(--delay, 0s) linear infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Subtle glow pulse for active sidebar items */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: inset 2px 0 8px hsl(var(--gold) / 0.08); }
+  50% { box-shadow: inset 2px 0 16px hsl(var(--gold) / 0.18); }
+}
+.sidebar-active-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Card hover lift */
+.card-lift {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.12), 0 4px 10px -5px rgba(0, 0, 0, 0.08);
+}
+.dark .card-lift:hover {
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.4), 0 4px 10px -5px rgba(0, 0, 0, 0.25);
+}
+
+/* Drop cap for intro blocks */
+.drop-cap::first-letter {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  float: left;
+  font-size: 3.2em;
+  line-height: 0.8;
+  padding-right: 8px;
+  padding-top: 4px;
+  color: hsl(var(--crimson));
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Ornamental divider */
+@keyframes dividerGlow {
+  0%, 100% { opacity: 0.5; text-shadow: 0 0 0 transparent; }
+  50% { opacity: 0.8; text-shadow: 0 0 8px hsl(var(--gold) / 0.3); }
+}
+.ornament-glow {
+  animation: dividerGlow 4s ease-in-out infinite;
+}
+
+/* Heading underline sweep on hover */
+.heading-sweep {
+  position: relative;
+}
+.heading-sweep::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, hsl(var(--crimson)), hsl(var(--gold)));
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.heading-sweep:hover::after {
+  width: 100%;
+}
+
+/* Table header gradient */
+.table-header-gradient {
+  background: linear-gradient(135deg, hsl(var(--bark)) 0%, hsl(var(--bark-deep)) 100%);
+}
+
+/* Smooth block entrance */
+@keyframes blockSlideIn {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.block-enter {
+  animation: blockSlideIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Gold line accent for stat blocks */
+.stat-accent {
+  background: linear-gradient(180deg, hsl(var(--stat) / 0.08) 0%, transparent 100%);
+}
+
+/* Breadcrumb separator animation */
+@keyframes breadcrumbFade {
+  from { opacity: 0; transform: scaleX(0.5); }
+  to { opacity: 0.4; transform: scaleX(1); }
+}
+
+/* Category page card index circle */
+.index-circle {
+  background: linear-gradient(135deg, hsl(var(--gold) / 0.15) 0%, hsl(var(--gold) / 0.08) 100%);
+  border: 1px solid hsl(var(--gold) / 0.2);
+  transition: all 0.25s ease;
+}
+.group:hover .index-circle {
+  background: linear-gradient(135deg, hsl(var(--gold) / 0.3) 0%, hsl(var(--gold) / 0.15) 100%);
+  border-color: hsl(var(--gold) / 0.4);
+  box-shadow: 0 0 12px hsl(var(--gold) / 0.15);
+}
