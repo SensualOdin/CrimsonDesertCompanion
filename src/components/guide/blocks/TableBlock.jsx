@@ -3,7 +3,7 @@ import React from "react"
 export const TableBlock = React.forwardRef(({ headers, rows }, ref) => (
   <div
     ref={ref}
-    className="relative z-[5] my-2 overflow-x-auto rounded-sm border border-border shadow-sm"
+    className="relative z-[5] my-3 overflow-x-auto rounded-sm border border-border shadow-sm"
   >
     <table className="w-full border-collapse font-sans text-xs">
       <thead>
