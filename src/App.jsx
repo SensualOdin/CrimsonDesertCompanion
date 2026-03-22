@@ -43,7 +43,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(() => {
     const saved = localStorage.getItem("theme")
     if (saved) return saved === "dark"
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
+    return false // default to light mode
   })
   const contentRef = useRef(null)
   const bRefs = useRef({})
