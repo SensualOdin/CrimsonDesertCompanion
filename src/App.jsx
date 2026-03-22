@@ -11,7 +11,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { AppSidebar } from "@/components/layout/AppSidebar"
-import { ParchmentTexture } from "@/components/decorative/ParchmentTexture"
 import { HomePage } from "@/components/home/HomePage"
 import { GuidePage } from "@/components/guide/GuidePage"
 
@@ -172,13 +171,11 @@ export default function App() {
         {/* Main content */}
         <div
           ref={contentRef}
-          className="relative flex-1 overflow-y-auto bg-parchment"
+          className="parchment-surface relative flex-1 overflow-y-auto bg-parchment"
           style={{
             padding: isMobile ? "56px 18px 28px" : "28px 44px 28px 60px",
           }}
         >
-          <ParchmentTexture />
-
           {!activePage && !searchQuery ? (
             <HomePage
               navigateTo={navigateTo}
