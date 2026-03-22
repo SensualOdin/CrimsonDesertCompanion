@@ -20,7 +20,7 @@ const starters = [
   { key: "kliff-builds", icon: Diamond, desc: "Build path for Kliff" },
 ]
 
-export function HomePage({ navigateTo, setExpandedCats, isMobile }) {
+export function HomePage({ navigateTo, navigateToCat, setExpandedCats, isMobile }) {
   const pgCount = Object.keys(guideData).length
 
   return (
@@ -88,10 +88,7 @@ export function HomePage({ navigateTo, setExpandedCats, isMobile }) {
             return (
               <button
                 key={cat}
-                onClick={() => {
-                  setExpandedCats((p) => ({ ...p, [cat]: true }))
-                  navigateTo(categories[cat][0].key)
-                }}
+                onClick={() => navigateToCat(cat)}
                 className="flex items-center gap-2 rounded-md border border-border bg-parchment-light/60 p-2.5 text-left transition-all hover:border-gold hover:shadow-sm cursor-pointer"
               >
                 <Icon className="h-4 w-4 flex-shrink-0 text-gold" />

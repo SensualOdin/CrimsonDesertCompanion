@@ -16,6 +16,7 @@ export function GuidePage({
   toggleSection,
   isVisible,
   navigateTo,
+  navigateToCat,
   setRef,
   bRefs,
   catPrev,
@@ -34,16 +35,29 @@ export function GuidePage({
   return (
     <div className="relative z-[5] mx-auto max-w-[700px]">
       {/* Back nav */}
-      <button
-        onClick={() => navigateTo(null)}
-        className="mb-2 flex min-h-[32px] items-center gap-1 bg-transparent border-none p-0 font-sans text-[11px] font-semibold uppercase tracking-widest text-crimson cursor-pointer hover:text-crimson-dark transition-colors"
-      >
-        <ChevronLeft className="h-3.5 w-3.5" />
-        Journal Home
-      </button>
+      <div className="mb-2 flex min-h-[32px] items-center gap-1 font-sans text-[11px] font-semibold uppercase tracking-widest">
+        <button
+          onClick={() => navigateTo(null)}
+          className="flex items-center gap-1 bg-transparent border-none p-0 text-crimson cursor-pointer hover:text-crimson-dark transition-colors"
+        >
+          <ChevronLeft className="h-3.5 w-3.5" />
+          Journal
+        </button>
+        <span className="text-ink-faded/40">/</span>
+        <button
+          onClick={() => navigateToCat(pageData.category)}
+          className="bg-transparent border-none p-0 text-crimson cursor-pointer hover:text-crimson-dark transition-colors"
+        >
+          {pageData.category}
+        </button>
+      </div>
 
       {/* Category + title */}
-      <Badge variant="default" className="mb-1.5">
+      <Badge
+        variant="default"
+        className="mb-1.5 cursor-pointer"
+        onClick={() => navigateToCat(pageData.category)}
+      >
         {pageData.category}
       </Badge>
       <h1 className="mb-1 font-display text-2xl font-bold leading-tight text-crimson-dark md:text-[34px]">

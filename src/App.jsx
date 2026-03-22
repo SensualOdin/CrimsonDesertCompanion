@@ -12,11 +12,15 @@ import {
 } from "@/components/ui/tooltip"
 import { AppSidebar } from "@/components/layout/AppSidebar"
 import { HomePage } from "@/components/home/HomePage"
+import { CategoryPage } from "@/components/home/CategoryPage"
 import { GuidePage } from "@/components/guide/GuidePage"
 
-/* Read page key from URL on initial load */
-const _initKey = new URLSearchParams(window.location.search).get("page")
+/* Read page key or category from URL on initial load */
+const _initParams = new URLSearchParams(window.location.search)
+const _initKey = _initParams.get("page")
+const _initCat = _initParams.get("cat")
 const INIT_PAGE = _initKey && guideData[_initKey] ? _initKey : null
+const INIT_CAT = !INIT_PAGE && _initCat && categories[_initCat] ? _initCat : null
 
 function buildCollapsed(key) {
   const s = {}
@@ -30,11 +34,14 @@ function buildCollapsed(key) {
 
 export default function App() {
   const [activePage, setActivePage] = useState(INIT_PAGE)
+  const [activeCategory, setActiveCategory] = useState(INIT_CAT)
   const [searchQuery, setSearchQuery] = useState("")
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [expandedCats, setExpandedCats] = useState(() =>
-    INIT_PAGE ? { [guideData[INIT_PAGE].category]: true } : {}
-  )
+  const [expandedCats, setExpandedCats] = useState(() => {
+    if (INIT_PAGE) return { [guideData[INIT_PAGE].category]: true }
+    if (INIT_CAT) return { [INIT_CAT]: true }
+    return {}
+  })
   const [collapsed, setCollapsed] = useState(() => buildCollapsed(INIT_PAGE))
   const [showTop, setShowTop] = useState(false)
   const [allCol, setAllCol] = useState(!!INIT_PAGE)
@@ -68,6 +75,7 @@ export default function App() {
     (key, bi) => {
       if (key && !guideData[key]) return
       setActivePage(key)
+      setActiveCategory(null) // clear category page when viewing a guide
       if (key) setHasNavigated(true)
 
       // Build collapsed state — all sections collapsed
@@ -93,7 +101,21 @@ export default function App() {
       const url = key
         ? `?page=${encodeURIComponent(key)}`
         : window.location.pathname
-      history.pushState({ page: key || null }, "", url)
+      history.pushState({ page: key || null, cat: null }, "", url)
+    },
+    [isMobile]
+  )
+
+  const navigateToCat = useCallback(
+    (cat) => {
+      setActivePage(null)
+      setActiveCategory(cat)
+      setExpandedCats((p) => ({ ...p, [cat]: true }))
+      setHlIdx(null)
+      if (isMobile) setSidebarOpen(false)
+
+      const url = `?cat=${encodeURIComponent(cat)}`
+      history.pushState({ page: null, cat }, "", url)
     },
     [isMobile]
   )
@@ -101,18 +123,25 @@ export default function App() {
   /* ── Browser history (back / forward + initial state) ───── */
   useEffect(() => {
     // Replace current entry so first back-press works correctly
-    history.replaceState(
-      { page: INIT_PAGE },
-      "",
-      INIT_PAGE
-        ? `?page=${encodeURIComponent(INIT_PAGE)}`
+    const initUrl = INIT_PAGE
+      ? `?page=${encodeURIComponent(INIT_PAGE)}`
+      : INIT_CAT
+        ? `?cat=${encodeURIComponent(INIT_CAT)}`
         : window.location.pathname
+    history.replaceState(
+      { page: INIT_PAGE, cat: INIT_CAT },
+      "",
+      initUrl
     )
 
     function onPopState() {
-      const p = new URLSearchParams(window.location.search).get("page")
+      const params = new URLSearchParams(window.location.search)
+      const p = params.get("page")
+      const c = params.get("cat")
       const page = p && guideData[p] ? p : null
+      const cat = !page && c && categories[c] ? c : null
       setActivePage(page)
+      setActiveCategory(cat)
       setCollapsed(buildCollapsed(page))
       setAllCol(!!page)
       setHlIdx(null)
@@ -175,7 +204,7 @@ export default function App() {
     } else {
       contentRef.current.scrollTop = 0
     }
-  }, [activePage, hlIdx])
+  }, [activePage, activeCategory, hlIdx])
 
   const pageData = activePage ? guideData[activePage] : null
 
@@ -249,7 +278,9 @@ export default function App() {
         {/* Sidebar */}
         <AppSidebar
           activePage={activePage}
+          activeCategory={activeCategory}
           navigateTo={navigateTo}
+          navigateToCat={navigateToCat}
           expandedCats={expandedCats}
           toggleCat={toggleCat}
           sidebarOpen={sidebarOpen}
@@ -269,10 +300,21 @@ export default function App() {
             padding: isMobile ? "56px 18px 28px" : "28px 44px 28px 60px",
           }}
         >
-          {!activePage ? (
+          {!activePage && !activeCategory ? (
             <HomePage
               navigateTo={navigateTo}
+              navigateToCat={navigateToCat}
               setExpandedCats={setExpandedCats}
+              isMobile={isMobile}
+            />
+          ) : !activePage && activeCategory ? (
+            <CategoryPage
+              category={activeCategory}
+              navigateTo={(key) => {
+                setExpandedCats((p) => ({ ...p, [activeCategory]: true }))
+                navigateTo(key)
+              }}
+              goHome={() => navigateTo(null)}
               isMobile={isMobile}
             />
           ) : pageData ? (
@@ -286,6 +328,7 @@ export default function App() {
               toggleSection={toggleSection}
               isVisible={isVisible}
               navigateTo={navigateTo}
+              navigateToCat={navigateToCat}
               setRef={setRef}
               bRefs={bRefs}
               catPrev={catNav.prev}
