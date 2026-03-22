@@ -64,7 +64,7 @@ export const StatBlock = React.forwardRef(({ text }, ref) => {
     return (
       <div
         ref={ref}
-        className="relative z-[5] mb-2 flex items-start gap-2.5 rounded-sm border border-stat/20 bg-stat/[0.04] px-3 py-2.5 text-[13px] leading-relaxed text-ink"
+        className="relative z-[5] -mt-px flex items-start gap-2.5 rounded-sm border border-stat/20 bg-stat/[0.04] px-3 py-2.5 text-[13px] leading-relaxed text-ink"
       >
         <Diamond className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-stat" />
         <span>{text}</span>
@@ -75,7 +75,7 @@ export const StatBlock = React.forwardRef(({ text }, ref) => {
   return (
     <div
       ref={ref}
-      className="relative z-[5] mb-2 overflow-hidden rounded-sm border border-stat/20 bg-stat/[0.04]"
+      className="relative z-[5] -mt-px overflow-hidden rounded-sm border border-stat/20 bg-stat/[0.04]"
     >
       {entries.map((entry, i) => (
         <div
