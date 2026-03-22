@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Alegreya:ital,wght@0,400;0,600;0,700;1,400&family=Alegreya+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.375rem;
+
+    /* Parchment theme */
+    --background: 36 30% 85%;
+    --foreground: 30 18% 18%;
+    --card: 36 32% 92%;
+    --card-foreground: 30 18% 18%;
+    --popover: 36 32% 92%;
+    --popover-foreground: 30 18% 18%;
+    --primary: 38 74% 31%;
+    --primary-foreground: 40 50% 92%;
+    --secondary: 34 22% 78%;
+    --secondary-foreground: 30 26% 20%;
+    --muted: 34 20% 80%;
+    --muted-foreground: 30 10% 48%;
+    --accent: 0 70% 33%;
+    --accent-foreground: 40 50% 92%;
+    --destructive: 0 70% 33%;
+    --destructive-foreground: 40 50% 92%;
+    --border: 34 22% 69%;
+    --input: 30 18% 32%;
+    --ring: 38 74% 31%;
+
+    /* Sidebar */
+    --sidebar: 27 30% 14%;
+    --sidebar-foreground: 36 22% 78%;
+    --sidebar-border: 28 22% 22%;
+    --sidebar-accent: 28 20% 20%;
+    --sidebar-accent-foreground: 42 60% 75%;
+    --sidebar-ring: 38 74% 31%;
+
+    /* Semantic block colors */
+    --tip: 43 85% 38%;
+    --warning: 0 70% 33%;
+    --location: 168 40% 30%;
+    --stat: 268 34% 38%;
+
+    /* Custom palette tokens */
+    --crimson: 0 70% 33%;
+    --crimson-dark: 0 68% 25%;
+    --gold: 38 74% 31%;
+    --gold-light: 42 72% 75%;
+    --gold-muted: 40 38% 78%;
+    --bark: 27 30% 18%;
+    --bark-deep: 27 30% 14%;
+    --bark-light: 27 22% 22%;
+    --parchment: 36 30% 85%;
+    --parchment-light: 36 32% 92%;
+    --parchment-warm: 34 22% 72%;
+    --ink: 30 18% 18%;
+    --ink-light: 28 30% 24%;
+    --ink-faded: 30 10% 48%;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-bark font-body text-foreground antialiased;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 7px; }
+::-webkit-scrollbar-track { background: hsl(34, 22%, 69%); }
+::-webkit-scrollbar-thumb {
+  background: hsl(38, 74%, 31%);
+  border-radius: 4px;
+  border: 1px solid hsl(30, 12%, 53%);
+}
+
+/* Parchment paper noise texture */
+.parchment-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='300' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.45' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23p)' opacity='.07'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Vignette overlay */
+.parchment-vignette {
+  box-shadow:
+    inset 0 0 80px rgba(90, 60, 20, .12),
+    inset 0 0 200px rgba(60, 40, 10, .06);
+}
+
+/* Highlight flash animation */
+.hl-flash {
+  animation: hlF 0.7s ease 2;
+}
+
+@keyframes hlF {
+  0%, 100% { background: inherit; }
+  50% { background: rgba(184, 134, 11, .18); border-left-color: #b8860b; }
+}
