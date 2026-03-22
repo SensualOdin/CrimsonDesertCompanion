@@ -51,7 +51,7 @@ export const TipBlock = React.forwardRef(({ text, variant = "tip" }, ref) => {
     <div
       ref={ref}
       className={cn(
-        "relative z-[5] mb-2 flex items-start gap-2.5 rounded-r-sm border-l-[3px] px-3 py-2.5 text-[13px] leading-relaxed text-ink transition-colors",
+        "relative z-[5] mb-2 flex items-start gap-2.5 rounded-r-sm border-l-[3px] px-3 py-2.5 text-[13px] leading-relaxed text-ink transition-all duration-200 hover:translate-x-0.5 hover:shadow-sm",
         v.border,
         v.bg
       )}

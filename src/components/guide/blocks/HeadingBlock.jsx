@@ -41,13 +41,16 @@ export const HeadingBlock = React.forwardRef(
         ref={ref}
         id={`s-${index}`}
         className={cn(
-          "relative z-[5] mt-6 mb-3 flex cursor-pointer select-none items-center gap-2 rounded-t-sm border-b-2 border-border px-3 py-2 font-display text-base font-bold text-crimson-dark transition-colors",
-          "bg-gradient-to-br from-parchment-warm/40 to-parchment-warm/20 hover:bg-parchment-warm/50"
+          "heading-sweep relative z-[5] mt-6 mb-3 flex cursor-pointer select-none items-center gap-2 overflow-hidden rounded-t-sm border-b-2 border-border px-3 py-2.5 font-display text-base font-bold text-crimson-dark transition-all duration-200",
+          "bg-gradient-to-br from-parchment-warm/40 to-parchment-warm/15 hover:from-parchment-warm/55 hover:to-parchment-warm/30",
+          !isCollapsed && "border-b-crimson/30"
         )}
         onClick={onToggle}
       >
         {Icon && (
-          <Icon className="h-4 w-4 flex-shrink-0 text-crimson/50" />
+          <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-crimson/10">
+            <Icon className="h-3.5 w-3.5 text-crimson/60" />
+          </span>
         )}
         <span className="flex-1">{text}</span>
         <ChevronRight

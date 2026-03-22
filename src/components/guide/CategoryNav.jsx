@@ -11,12 +11,12 @@ export function CategoryNav({ catPrev, catNext, category, isMobile, onNavigate }
       {catPrev ? (
         <button
           onClick={() => onNavigate(catPrev.key)}
-          className="flex-1 rounded-md border border-border bg-parchment-light/60 p-2.5 text-left transition-colors hover:border-gold hover:bg-parchment-warm/50"
+          className="card-lift flex-1 rounded-md border border-border bg-parchment-light/60 p-3 text-left cursor-pointer"
         >
           <div className="font-sans text-[9px] uppercase tracking-widest text-ink-faded">
             {"\u2190"} Prev in {category}
           </div>
-          <div className="mt-0.5 font-body text-xs font-semibold italic text-crimson-dark">
+          <div className="mt-1 font-body text-xs font-semibold italic text-crimson-dark">
             {catPrev.title}
           </div>
         </button>
@@ -27,14 +27,14 @@ export function CategoryNav({ catPrev, catNext, category, isMobile, onNavigate }
         <button
           onClick={() => onNavigate(catNext.key)}
           className={cn(
-            "flex-1 rounded-md border border-border bg-parchment-light/60 p-2.5 transition-colors hover:border-gold hover:bg-parchment-warm/50",
+            "card-lift flex-1 rounded-md border border-border bg-parchment-light/60 p-3 cursor-pointer",
             isMobile ? "text-left" : "text-right"
           )}
         >
           <div className="font-sans text-[9px] uppercase tracking-widest text-ink-faded">
             Next in {category} {"\u2192"}
           </div>
-          <div className="mt-0.5 font-body text-xs font-semibold italic text-crimson-dark">
+          <div className="mt-1 font-body text-xs font-semibold italic text-crimson-dark">
             {catNext.title}
           </div>
         </button>

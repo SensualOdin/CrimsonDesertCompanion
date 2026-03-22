@@ -4,11 +4,13 @@ export function Divider({ className }) {
   return (
     <div
       className={cn(
-        "relative z-[5] text-center text-xs tracking-[6px] text-gold opacity-50 my-1.5",
+        "relative z-[5] text-center text-xs tracking-[6px] text-gold my-1.5 ornament-glow select-none",
         className
       )}
     >
-      {"\u2014 \u2726 \u2014"}
+      <span className="inline-block">
+        {"\u2500\u2500\u2500 \u2726 \u2500\u2500\u2500"}
+      </span>
     </div>
   )
 }

@@ -168,9 +168,9 @@ export function AppSidebar({
                           key={page.key}
                           onClick={() => navigateTo(page.key)}
                           className={cn(
-                            "flex w-full cursor-pointer items-center border-none bg-transparent border-l-2 border-l-transparent px-3.5 py-1.5 pl-9 text-left font-body text-[13px] italic text-ink-faded/80 transition-colors hover:border-l-gold hover:bg-bark hover:text-gold-light min-h-[36px]",
+                            "flex w-full cursor-pointer items-center border-none bg-transparent border-l-2 border-l-transparent px-3.5 py-1.5 pl-9 text-left font-body text-[13px] italic text-ink-faded/80 transition-all duration-200 hover:border-l-gold hover:bg-bark hover:text-gold-light hover:pl-10 min-h-[36px]",
                             activePage === page.key &&
-                              "border-l-gold-light bg-bark font-semibold not-italic text-gold-light"
+                              "border-l-gold-light bg-bark font-semibold not-italic text-gold-light sidebar-active-glow pl-10"
                           )}
                         >
                           {page.title}
