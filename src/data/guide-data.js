@@ -1689,7 +1689,7 @@ rows:[
 {type:"links",pages:["horses-deep","dragon-atag","camp","fast-travel"]}
 ]},
 "dragon-atag":{category:"Exploration",title:"Dragon & ATAG Mech",
-tags:["dragon","blackstar","ATAG","mech","fly","fireball","machine gun","cannon","EMP","upgrade","gorthak","delesyia"],
+tags:["dragon","blackstar","ATAG","mech","fly","fireball","machine gun","cannon","EMP","upgrade","gorthak","delesyia","lion","circus","laughing marionette","kuku bird","cow","giant iguana","red dodo","temporary mount"],
 content:[
 {type:"intro",text:"Two endgame power mounts that completely change gameplay. Dragon = flight + fire. ATAG = walking tank. Both are story-locked."},
 {type:"heading",text:"Blackstar Dragon"},
@@ -1729,7 +1729,7 @@ rows:[
 {type:"tip",text:"Serves as your offensive mount between dragon cooldowns. Upgrade BEFORE the Golden Star boss fight."},
 {type:"tip",text:"Save rare dyes for the War Robot — it has the most dyeable sections of anything in the game."},
 {type:"heading",text:"All Exotic Mounts (Non-Horse)"},
-{type:"tip",text:"29 total mounts across horses, bears, raptors, lizards, dinosaurs, dragons, mechs, and exotics. Most exotic mounts use the same counter-input taming mechanic as horses. Some require Beast Taming skill, boss defeats, or questlines."},
+{type:"tip",text:"~28 confirmed mounts across horses, bears, raptors, lizards, dinosaurs, dragons, mechs, and exotics. Many exotic mounts are TEMPORARY — they disappear or revert to hostile after dismount. Community is still documenting several. Most use the same counter-input taming mechanic as horses."},
 {type:"heading",text:"Bears (4) — Ground Combat Mounts"},
 {type:"table",headers:["Mount","Combat","Stamina","Location","Special"],
 rows:[
@@ -1780,7 +1780,7 @@ rows:[
 ["Siege Walker","40","95","90","Delesyian Automaton boss blueprint","Fires missiles, AoE damage"],
 ["Golden Star Mech","70","90","80","Boss drop from Golden Star","Homing barrage + energy shield"]
 ]},
-{type:"heading",text:"Exotic (3) — Rare & Unique"},
+{type:"heading",text:"Exotic — Rare & Unique"},
 {type:"table",headers:["Mount","Speed","Location","Special"],
 rows:[
 ["Direwolf","Fast","Pailune region (suspected)","Agile flanking maneuvers. Pack-hunting coordinated attacks with rider. Seen in launch trailer."],
@@ -1788,6 +1788,17 @@ rows:[
 ["Phantom Steed","95","Ghost of Gian side quest","Wall/cliff climbing. Fastest exotic mount."]
 ]},
 {type:"warning",text:"Abyssal Spider requires the Beast Taming skill — prioritize it early in the Abyss Tree if you want exotic mounts. It gates several taming attempts."},
+{type:"heading",text:"Temporary Mounts — Steal / Beat Into Submission"},
+{type:"tip",text:"Several animals can be ridden temporarily but CANNOT be registered at stables. They disappear or revert to hostile after dismount."},
+{type:"table",headers:["Mount","Location","How to Get","Notes"],
+rows:[
+["Lion","The Laughing Marionette circus, Demeniss","Steal from the circus — approach and mount when unguarded","Temporary. The circus also hosts the 'Nightmare on Stage' faction quest (Keglord Garnier boss)."],
+["Cow","Farms across Hernand / Pailune","Approach and ride — no combat needed","Temporary. Slow, no combat ability. Pure comedy mount."],
+["Kuku Bird Hatchling","Steel Mountains, E of Spire of Insight","Defeat Blinding Arrow soldier riding one → chase and mount the bird","Temporary. Cannot register at stable. Unique ability: GLIDE from tall heights. Cannot fly upward, but controls descent direction. Wanders after dismount."],
+["Giant Iguana","TBD (details still emerging)","TBD","Listed in mount database. Acquisition not yet confirmed by community."],
+["Red Dodo","TBD (details still emerging)","TBD","Listed in mount database. Acquisition not yet confirmed by community."]
+]},
+{type:"warning",text:"Temporary mount controversy: players are frustrated that bears, lions, Kuku Birds, and other exotic creatures can't be permanently tamed. Pearl Abyss may patch this — watch for updates."},
 {type:"tip",text:"All combat mounts (bears, direwolf, raptors) become substantially more powerful when rider applies elemental infusions to weapon attacks."},
 {type:"links",pages:["horses-deep","mounts-vehicles","research-institutes"]}
 ]},
